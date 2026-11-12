@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff"><title>التحقق من تصريح أجير</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="site-shell">
+  <header class="topbar">
+    <a href="/" aria-label="الصفحة الرئيسية"><img src="/images/mlsd-logo.png" alt="شعار وزارة الموارد البشرية والتنمية الاجتماعية"></a>
+    <a href="/" aria-label="أجير"><img src="/images/ajeer-logo.png" alt="شعار أجير"></a>
+  </header>
+  <main class="main-stage">
+    <section class="search-card">
+      <div class="search-heading"><img src="/images/ajeer-logo.png" alt="أجير"><h1>التحقق من تصريح أجير</h1></div>
+      <p>يرجى إدخال رقم التصريح لعرض بياناته</p>
+      <form id="permitSearchForm" class="public-search-form">
+        <label for="permitNumber">رقم التصريح</label>
+        <div class="search-row">
+          <input id="permitNumber" name="permitNumber" type="text" required maxlength="80" autocomplete="off" placeholder="أدخل رقم التصريح">
+          <button class="primary-button" type="submit">بحث</button>
+        </div>
+        <p id="searchMessage" class="search-message" role="alert"></p>
+      </form>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="footer-logo-strip">
+      <img src="/images/digital-govt-auth-logo.svg" alt="الحكومة الرقمية">
+      <img src="/images/takamol-logo.png" alt="تكامل">
+      <img src="/images/tamkeen-logo.svg" alt="تمكين">
+      <img src="/images/mlsd-logo.png" alt="وزارة الموارد البشرية">
+    </div>
+    <div class="footer-column"><strong>تواصل معنا</strong><a href="mailto:support@ajeer.com.sa">البريد الإلكتروني</a></div>
+    <div class="footer-column"><strong>الدعم</strong><a href="https://www.hrsd.gov.sa/en" target="_blank" rel="noopener">الدعم والمساعدة</a><a href="https://www.hrsd.gov.sa/en" target="_blank" rel="noopener">الأسئلة الشائعة</a></div>
+    <div class="footer-column"><strong>روابط مرجعية</strong><a href="https://www.ajeer.com.sa" target="_blank" rel="noopener">موقع أجير</a><a href="https://www.hrsd.gov.sa" target="_blank" rel="noopener">موقع الوزارة</a></div>
+    <p class="footer-disclaimer">مشروع تعليمي مستقل، وليس موقعًا رسميًا لأجير أو لأي جهة حكومية سعودية.</p>
+  </footer>
+</div>
+<script>
+document.getElementById("permitSearchForm").addEventListener("submit", function (event) {
+  event.preventDefault();
+  const value = document.getElementById("permitNumber").value.trim();
+  const message = document.getElementById("searchMessage");
+  if (!value) { message.textContent = "يرجى إدخال رقم التصريح."; return; }
+  window.location.href = "/permit/" + encodeURIComponent(value);
+});
+</script>
+<script src="/permit-chat.js"></script>
+</body></html>

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08734b">
+  <title>Employee Admin Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin-body">
+  <div id="adminApp">
+    <section class="login-card" id="loginPanel">
+      <h1>Employee Admin</h1>
+      <p>Sign in to manage employee permit records.</p>
+      <form id="loginForm">
+        <label>Username<input name="username" autocomplete="username" required></label>
+        <label>Password<input name="password" type="password" autocomplete="current-password" required></label>
+        <button class="primary-button" type="submit">Login</button>
+        <p class="form-message" id="loginMessage" role="alert"></p>
+      </form>
+      <p class="hint">Login details are set by you in the backend .env file.</p>
+    </section>
+
+    <section id="dashboard" hidden>
+      <header class="admin-header">
+        <div><strong>Employee Admin Dashboard</strong><span id="adminWelcome"></span></div>
+        <div class="header-actions"><a href="/">Public page</a><button class="secondary-button" id="logoutBtn" type="button">Logout</button></div>
+      </header>
+      <main class="admin-main">
+        <section class="admin-stats">
+          <div class="stat-card"><span>Total employees</span><strong id="totalCount">0</strong></div>
+          <div class="stat-card"><span>Active permits</span><strong id="activeCount">0</strong></div>
+          <div class="stat-card"><span>Inactive permits</span><strong id="inactiveCount">0</strong></div>
+        </section>
+
+        <section class="admin-panel">
+          <div class="panel-heading">
+            <div><h1 id="formTitle">Add employee</h1><p>Enter all details exactly as they should be stored.</p></div>
+          </div>
+          <form id="employeeForm" class="employee-form">
+            <label class="field">Permit number *<input name="permitNumber" required maxlength="80"></label>
+            <label class="field">Permit type *<input name="permitType" required></label>
+            <label class="field">Permit start date *<input name="declarationStartDate" type="date" required></label>
+            <label class="field">Permit expiry date *<input name="declarationExpiryDate" type="date" required></label>
+            <label class="field">Employee name *<input name="employeeName" required></label>
+            <label class="field">Occupation *<input name="occupation" required></label>
+            <label class="field">Nationality *<input name="nationality" required></label>
+            <label class="field">Date of birth *<input name="dateOfBirth" type="date" required></label>
+            <label class="field">Sex *<select name="sex" required><option value="">Select</option><option>Male</option><option>Female</option><option>ذكر</option><option>أنثى</option></select></label>
+            <label class="field">Residence / ID number *<input name="residenceNumber" required></label>
+            <label class="field">Establishment name *<input name="establishmentName" required></label>
+            <label class="field">Establishment number *<input name="establishmentNumber" required></label>
+            <label class="active-check"><input name="active" type="checkbox" checked> Active permit</label>
+            <div class="form-actions">
+              <button class="primary-button" id="saveBtn" type="submit">Add employee</button>
+              <button class="secondary-button" id="clearBtn" type="button">Clear form</button>
+            </div>
+            <p class="form-message wide" id="formMessage" role="status"></p>
+          </form>
+        </section>
+
+        <section class="admin-panel">
+          <div class="panel-heading records-heading"><div><h2>Employee records</h2><p>Employee records are stored in MongoDB Atlas.</p></div><button class="secondary-button" id="refreshBtn" type="button">Refresh</button></div>
+          <input class="search-input" id="searchInput" type="search" placeholder="Search by permit number, employee name, nationality, occupation or establishment">
+          <p class="search-help">Search an employee and click <strong>View permit</strong> to open the saved permit details directly in this admin panel.</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Employee</th><th>Permit number</th><th>Establishment</th><th>Status</th><th>Actions</th></tr></thead>
+              <tbody id="employeeRows"><tr><td colspan="5">Loading records...</td></tr></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </section>
+  </div>
+
+  <section class="permit-modal" id="permitModal" hidden aria-labelledby="permitModalTitle" role="dialog" aria-modal="true">
+    <div class="permit-modal-card">
+      <div class="permit-modal-heading">
+        <div><h2 id="permitModalTitle">Employee permit</h2><p>Saved employee record from MongoDB Atlas</p></div>
+        <button class="secondary-button" id="closePermitBtn" type="button" aria-label="Close">Close</button>
+      </div>
+      <div id="permitDetails" class="permit-details"></div>
+      <div class="permit-modal-actions">
+        <button class="primary-button" id="printPermitBtn" type="button">Print permit details</button>
+        <button class="secondary-button" id="closePermitBtnBottom" type="button">Close</button>
+      </div>
+    </div>
+  </section>
+  <script src="admin.js"></script>
+<script src="/permit-chat.js"></script>
+</body>
+</html>
