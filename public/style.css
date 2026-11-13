@@ -223,3 +223,73 @@ body.modal-open{overflow:hidden}
 .permit-chat-note{margin:0;padding:0 10px 9px;text-align:center;font-size:10px;color:#7a8580;background:#fff}
 @media(max-width:768px){.permit-chat{position:fixed!important;left:max(10px,env(safe-area-inset-left))!important;right:auto!important;bottom:max(10px,env(safe-area-inset-bottom))!important;z-index:99999!important}.permit-chat-launcher{width:50px;height:50px;touch-action:manipulation}.permit-chat-panel{left:0;bottom:62px;width:min(340px,calc(100vw - 24px));height:min(420px,calc(100dvh - 100px));max-height:calc(100dvh - 100px)}}
 @media print{.permit-chat{display:none!important}}
+
+
+/* Footer rebuilt to match the supplied Ajeer reference */
+.footer{display:flex;flex-direction:column;align-items:stretch;gap:38px;padding:34px max(5%,calc((100% - 1120px)/2)) 42px;background:#fff}
+.footer-links{width:100%;display:flex;flex-direction:column;align-items:flex-end;gap:30px}
+.footer-links .footer-column{min-width:0;align-items:flex-end;text-align:right;gap:12px}
+.footer-links .footer-column strong{color:#202942;font-size:19px;font-weight:500}
+.footer-links .footer-column a{color:#777b80;font-size:17px;line-height:1.6;text-decoration:none}
+.footer-links .footer-column a:hover{color:#08734b}
+.footer-social{display:flex;align-items:center;gap:22px;margin-top:4px}
+.footer-social a,.footer-social span{display:grid;place-items:center;width:24px;height:28px;color:#202942}
+.footer-social svg{width:25px;height:25px;fill:currentColor}
+.footer-logo-strip{width:100%;min-height:360px;display:grid;direction:rtl;grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,minmax(105px,1fr));align-items:center;justify-items:center;gap:0;padding:8px 0;border-top:1px solid #dedede}
+.footer-logo-strip img{width:100%;max-width:210px;height:100%;max-height:125px;padding:18px;object-fit:contain}
+.footer-logo-strip .logo-mlsd{grid-column:1;grid-row:1}
+.footer-logo-strip .logo-takamol{grid-column:1;grid-row:2}
+.footer-logo-strip .logo-tamkeen{grid-column:1;grid-row:3}
+.footer-logo-strip .logo-digital{grid-column:2;grid-row:2;border-right:1px solid #dedede}
+.status-cell{position:relative;color:#08734b;background:#f4faf6;font-size:16px;font-weight:700}
+.status-cell:not(.status-invalid)::before{content:"";width:8px;height:8px;margin-left:9px;border-radius:50%;background:#15945d;box-shadow:0 0 0 3px #dff2e7}
+.status-cell.status-invalid{color:#b42318;background:#fff7f6}
+.status-cell.status-invalid::before{content:"";width:8px;height:8px;margin-left:9px;border-radius:50%;background:#b42318;box-shadow:0 0 0 3px #fde5e3}
+@media(max-width:760px){
+ .footer{padding:22px 6% 30px;gap:32px}
+ .footer-links{gap:28px}
+ .footer-links .footer-column{width:100%;align-items:flex-end;text-align:right;gap:10px;padding:0 2px}
+ .footer-links .footer-column strong{font-size:18px}
+ .footer-links .footer-column a{font-size:16px}
+ .footer-social{gap:20px}
+ .footer-logo-strip{min-height:0;height:528px;grid-template-rows:repeat(3,1fr);border-top:1px solid #dedede;border-left:0}
+ .footer-logo-strip img{max-width:100%;max-height:176px;height:100%;padding:22px 12px}
+ .footer-logo-strip .logo-digital{border-right:1px solid #dedede}
+ .footer-disclaimer{display:none}
+}
+@media(max-width:480px){
+ .footer{padding:22px 6% 30px}
+ .footer-logo-strip{height:440px}
+ .footer-logo-strip img{max-height:146px;padding:16px 8px}
+}
+
+
+/* Mobile permit header matched to the latest supplied screenshot.
+   Desktop header and all permit data styling remain unchanged. */
+.mobile-verification-message{display:none}
+@media(max-width:760px){
+ .topbar{height:58px;min-height:58px;padding:0 12px;gap:12px;background:#fff}
+ .topbar img{max-width:112px;max-height:42px}
+ .main-stage{padding:18px 8px 14px;background:#f1f1f1}
+ .stage-inner{padding:0;background:#f7f7f7}
+ .record-card{border:2px solid #d1d3d6;background:#fff}
+ .record-tabs{display:flex;flex-direction:column;border:0}
+ .logo-cell{order:1;min-height:102px;height:102px;padding:12px 10px;border:0;border-bottom:2px solid #d1d3d6}
+ .partner-logos{height:100%;width:100%;display:flex;flex-direction:row;align-items:center;justify-content:space-evenly;gap:18px}
+ .partner-logos img{display:block;width:42%;max-width:42%;height:70px;max-height:70px;object-fit:contain}
+ .heading-cell{order:2;min-height:78px;height:auto;padding:12px 8px;border:0;border-bottom:2px solid #d1d3d6;font-size:clamp(22px,6.1vw,30px);line-height:1.45;font-weight:600;color:#080d12}
+ .status-cell{order:3;min-height:69px;height:auto;padding:12px 8px;border:0;border-bottom:2px solid #d1d3d6;background:#fff;color:#20694f;font-size:clamp(21px,5.7vw,28px);font-weight:500;line-height:1.4}
+ .status-cell::before{display:none!important;content:none!important}
+ .status-cell.status-invalid{background:#fff;color:#b42318}
+ .mobile-verification-message{display:flex;min-height:95px;padding:18px 12px;align-items:center;justify-content:center;text-align:center;border-bottom:2px solid #d1d3d6;background:#fff;color:#101820;font-size:clamp(19px,5.2vw,26px);font-weight:400;line-height:1.6}
+ .record-content{padding:14px 0 14px}
+}
+@media(max-width:480px){
+ .topbar{height:58px;min-height:58px;padding:0 12px}
+ .topbar img{max-width:112px;max-height:40px}
+ .logo-cell{min-height:98px;height:98px}
+ .partner-logos img{height:66px;max-height:66px}
+ .heading-cell{min-height:76px;font-size:clamp(21px,6vw,25px)}
+ .status-cell{min-height:66px;font-size:clamp(20px,5.5vw,23px)}
+ .mobile-verification-message{min-height:92px;font-size:clamp(18px,5vw,22px)}
+}
