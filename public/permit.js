@@ -5,12 +5,13 @@ function dataRow(lv,ll,rv,rl){return `<div class="data-row"><div class="data-pai
 function section(title,rows){return `<section class="info-section"><div class="section-title">${title}</div>${rows.join("")}</section>`;}
 (async function(){
  const number=decodeURIComponent(location.pathname.split("/").pop()||"");
- const content=document.getElementById("permitContent"),status=document.getElementById("permitStatus");
+ const content=document.getElementById("permitContent"),status=document.getElementById("permitStatus"),verificationMessage=document.getElementById("mobileVerificationMessage");
  try{
   const response=await fetch("/api/employees/public/"+encodeURIComponent(number));
   const data=await response.json();
   if(!response.ok) throw new Error(data.message||"لم يتم العثور على التصريح.");
-  status.textContent=data.statusText||(data.active?"ساري المفعول":"غير نشط");
+  status.textContent=data.active?"ساري / فعال":"غير نشط";
+  if(verificationMessage) verificationMessage.hidden=false;
   status.classList.toggle("status-invalid",!data.active);
   content.innerHTML=
    section("بيانات التصريح",[
