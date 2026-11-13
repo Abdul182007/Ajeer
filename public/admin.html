@@ -1,93 +1,72 @@
 <!doctype html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#08734b">
-  <title>Employee Admin Dashboard</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff"><title>التحقق من تصريح أجير</title>
+  <link rel="stylesheet" href="/style.css">
 </head>
-<body class="admin-body">
-  <div id="adminApp">
-    <section class="login-card" id="loginPanel">
-      <h1>Employee Admin</h1>
-      <p>Sign in to manage employee permit records.</p>
-      <form id="loginForm">
-        <label>Username<input name="username" autocomplete="username" required></label>
-        <label>Password<input name="password" type="password" autocomplete="current-password" required></label>
-        <button class="primary-button" type="submit">Login</button>
-        <p class="form-message" id="loginMessage" role="alert"></p>
+<body>
+<div class="site-shell">
+  <header class="topbar">
+    <a href="/" aria-label="الصفحة الرئيسية"><img src="/images/mlsd-logo.png" alt="شعار وزارة الموارد البشرية والتنمية الاجتماعية"></a>
+    <a href="/" aria-label="أجير"><img src="/images/ajeer-logo.png" alt="شعار أجير"></a>
+  </header>
+  <main class="main-stage">
+    <section class="search-card">
+      <div class="search-heading"><img src="/images/ajeer-logo.png" alt="أجير"><h1>التحقق من تصريح أجير</h1></div>
+      <p>يرجى إدخال رقم التصريح لعرض بياناته</p>
+      <form id="permitSearchForm" class="public-search-form">
+        <label for="permitNumber">رقم التصريح</label>
+        <div class="search-row">
+          <input id="permitNumber" name="permitNumber" type="text" required maxlength="80" autocomplete="off" placeholder="أدخل رقم التصريح">
+          <button class="primary-button" type="submit">بحث</button>
+        </div>
+        <p id="searchMessage" class="search-message" role="alert"></p>
       </form>
-      <p class="hint">Login details are set by you in the backend .env file.</p>
     </section>
-
-    <section id="dashboard" hidden>
-      <header class="admin-header">
-        <div><strong>Employee Admin Dashboard</strong><span id="adminWelcome"></span></div>
-        <div class="header-actions"><a href="/">Public page</a><button class="secondary-button" id="logoutBtn" type="button">Logout</button></div>
-      </header>
-      <main class="admin-main">
-        <section class="admin-stats">
-          <div class="stat-card"><span>Total employees</span><strong id="totalCount">0</strong></div>
-          <div class="stat-card"><span>Active permits</span><strong id="activeCount">0</strong></div>
-          <div class="stat-card"><span>Inactive permits</span><strong id="inactiveCount">0</strong></div>
-        </section>
-
-        <section class="admin-panel">
-          <div class="panel-heading">
-            <div><h1 id="formTitle">Add employee</h1><p>Enter all details exactly as they should be stored.</p></div>
-          </div>
-          <form id="employeeForm" class="employee-form">
-            <label class="field">Permit number *<input name="permitNumber" required maxlength="80"></label>
-            <label class="field">Permit type *<input name="permitType" required></label>
-            <label class="field">Permit start date *<input name="declarationStartDate" type="date" required></label>
-            <label class="field">Permit expiry date *<input name="declarationExpiryDate" type="date" required></label>
-            <label class="field">Employee name *<input name="employeeName" required></label>
-            <label class="field">Occupation *<input name="occupation" required></label>
-            <label class="field">Nationality *<input name="nationality" required></label>
-            <label class="field">Date of birth *<input name="dateOfBirth" type="date" required></label>
-            <label class="field">Sex *<select name="sex" required><option value="">Select</option><option>Male</option><option>Female</option><option>ذكر</option><option>أنثى</option></select></label>
-            <label class="field">Residence / ID number *<input name="residenceNumber" required></label>
-            <label class="field">Establishment name *<input name="establishmentName" required></label>
-            <label class="field">Establishment number *<input name="establishmentNumber" required></label>
-            <label class="active-check"><input name="active" type="checkbox" checked> Active permit</label>
-            <div class="form-actions">
-              <button class="primary-button" id="saveBtn" type="submit">Add employee</button>
-              <button class="secondary-button" id="clearBtn" type="button">Clear form</button>
-            </div>
-            <p class="form-message wide" id="formMessage" role="status"></p>
-          </form>
-        </section>
-
-        <section class="admin-panel">
-          <div class="panel-heading records-heading"><div><h2>Employee records</h2><p>Employee records are stored in MongoDB Atlas.</p></div><button class="secondary-button" id="refreshBtn" type="button">Refresh</button></div>
-          <input class="search-input" id="searchInput" type="search" placeholder="Search by permit number, employee name, nationality, occupation or establishment">
-          <p class="search-help">Search an employee and click <strong>View permit</strong> to open the saved permit details directly in this admin panel.</p>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Employee</th><th>Permit number</th><th>Establishment</th><th>Status</th><th>Actions</th></tr></thead>
-              <tbody id="employeeRows"><tr><td colspan="5">Loading records...</td></tr></tbody>
-            </table>
-          </div>
-        </section>
-      </main>
-    </section>
+  </main>
+  <footer class="footer">
+ <nav class="footer-links" aria-label="روابط الموقع">
+  <div class="footer-column">
+   <strong>أجير</strong>
+   <a href="https://www.ajeer.com.sa/" target="_blank" rel="noopener">عن أجير</a>
+   <a href="https://www.ajeer.com.sa/" target="_blank" rel="noopener">خدمات أجير</a>
   </div>
-
-  <section class="permit-modal" id="permitModal" hidden aria-labelledby="permitModalTitle" role="dialog" aria-modal="true">
-    <div class="permit-modal-card">
-      <div class="permit-modal-heading">
-        <div><h2 id="permitModalTitle">Employee permit</h2><p>Saved employee record from MongoDB Atlas</p></div>
-        <button class="secondary-button" id="closePermitBtn" type="button" aria-label="Close">Close</button>
-      </div>
-      <div id="permitDetails" class="permit-details"></div>
-      <div class="permit-modal-actions">
-        <button class="primary-button" id="printPermitBtn" type="button">Print permit details</button>
-        <button class="secondary-button" id="closePermitBtnBottom" type="button">Close</button>
-      </div>
-    </div>
-  </section>
-  <script src="admin.js"></script>
+  <div class="footer-column">
+   <strong>الدعم</strong>
+   <a href="https://www.hrsd.gov.sa/en" target="_blank" rel="noopener">الدعم و المساعدة</a>
+   <a href="https://www.hrsd.gov.sa/en" target="_blank" rel="noopener">الأسئلة الشائعة</a>
+  </div>
+  <div class="footer-column">
+   <strong>الشروط و الخصوصية</strong>
+   <a href="https://www.ajeer.com.sa/" target="_blank" rel="noopener">الشروط والأحكام</a>
+   <a href="https://www.ajeer.com.sa/" target="_blank" rel="noopener">سياسة الخصوصية</a>
+  </div>
+  <div class="footer-column footer-contact">
+   <strong>تواصل معنا</strong>
+   <div class="footer-social" aria-label="قنوات التواصل">
+    <span aria-label="اتصال" role="img"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 2.8 9.4 2l2 4.8-2.1 1.6a15.2 15.2 0 0 0 6.3 6.3l1.6-2.1 4.8 2-.8 2.8c-.4 1.4-1.8 2.3-3.2 2.1C9.7 18.4 5.6 14.3 4.5 8c-.2-1.4.7-2.8 2.1-3.2Z"/></svg></span>
+    <span aria-label="Telegram" role="img"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21.5 3.2-3.3 17c-.2 1.2-.9 1.5-1.9.9l-5.2-3.9-2.5 2.4c-.3.3-.6.6-1.2.6l.4-5.3 9.7-8.8c.4-.4-.1-.6-.6-.2L5 13.3l-5-1.6c-1.1-.3-1.1-1.1.2-1.6L19.7 2c.9-.3 2.1.2 1.8 1.2Z"/></svg></span>
+    <span aria-label="X" role="img"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 2H22l-6.8 7.8L23.2 22h-6.3L12 14.9 5.8 22H2.6l7.3-8.4L1.9 2h6.5l4.5 6.7L18.9 2Zm-1.1 18h1.7L7.4 3.9H5.6L17.8 20Z"/></svg></span>
+   </div>
+  </div>
+ </nav>
+ <div class="footer-logo-strip">
+  <img class="logo-digital" src="/images/digital-govt-auth-logo.svg" alt="الحكومة الرقمية">
+  <img class="logo-takamol" src="/images/takamol-logo.png" alt="تكامل">
+  <img class="logo-tamkeen" src="/images/tamkeen-logo.svg" alt="تمكين">
+  <img class="logo-mlsd" src="/images/mlsd-logo.png" alt="وزارة الموارد البشرية والتنمية الاجتماعية">
+ </div>
+</footer>
+</div>
+<script>
+document.getElementById("permitSearchForm").addEventListener("submit", function (event) {
+  event.preventDefault();
+  const value = document.getElementById("permitNumber").value.trim();
+  const message = document.getElementById("searchMessage");
+  if (!value) { message.textContent = "يرجى إدخال رقم التصريح."; return; }
+  window.location.href = "/permit/" + encodeURIComponent(value);
+});
+</script>
 <script src="/permit-chat.js"></script>
-</body>
-</html>
+</body></html>
